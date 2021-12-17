@@ -10,7 +10,7 @@ from campy.graphics.gwindow import GWindow
 from campy.graphics.gobjects import GOval, GRect, GLabel
 from campy.gui.events.mouse import onmouseclicked, onmousemoved
 import random
-
+123
 BRICK_SPACING = 5      # Space between bricks (in pixels). This space is used for horizontal and vertical spacing
 BRICK_WIDTH = 40       # Height of a brick (in pixels)
 BRICK_HEIGHT = 15      # Height of a brick (in pixels)
