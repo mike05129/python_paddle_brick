@@ -52,8 +52,10 @@ class BreakoutGraphics:
 
         # Center a filled ball in the graphical window
         self.ball = GOval(ball_radius * 2, ball_radius*2)
-        self.ball.x = window_width//2 - ball_radius
-        self.ball.y = window_height//2 - ball_radius
+        self.ball_init_x = window_width // 2 - ball_radius
+        self.ball_init_y = window_height // 2 - ball_radius
+        self.ball.x = self.ball_init_x
+        self.ball.y = self.ball_init_y
         self.ball.filled = True
         self.window.add(self.ball)
 
@@ -61,6 +63,8 @@ class BreakoutGraphics:
         self.__dx = 0
         self.__dy = 0
         self.go = False
+        self.bricks_amount = brick_rows*brick_cols
+        
 
         # Initialize our mouse listeners
 
@@ -89,13 +93,46 @@ class BreakoutGraphics:
             self.paddle.x = 0
         else:
             self.paddle.x = self.window.width - self.paddle.width
+   
     def start(self, event):
         if not self.go:
             self.go = True            
-            self.__dx=random.random(1,MAX_X_SPEED)
+            self.__dx=random.randint(1,MAX_X_SPEED)
             self.__dy = INITIAL_Y_SPEED
             if random.random() > 0.5:
                 self.__dx = -self.__dx
                 
                 
-    def detect_corner_hits(self):
+    def detect_hits(self):
+        for corner_x in range(self.ball.x, self.ball.x + self.ball.width + 1, self.ball.width):
+            for corner_y in range(self.ball.y, self.ball.y + self.ball.height + 1, self.ball.height):
+                object_det = self.window.get_object_at(corner_x, corner_y)
+                if object_det:
+                    if object_det is not self.paddle:
+                        self.window.remove(object_det)
+                        self.bricks_amount -=1
+                        self.__dy *= -1
+                        return
+                    elif object_det is self.paddle:
+                        self.__dy *= -1 
+                        return
+    
+    def reset(self):
+        self.ball.x = self.ball_init_x
+        self.ball.y = self.ball_init_y
+        self.go = False
+ 
+    def get_dx(self):
+        return self.__dx
+    
+
+    def get_dy(self):
+        return self.__dy
+    
+    
+    def change_x_direction(self):
+        self.__dx *= -1
+
+
+    def change_y_direction(self):
+        self.__dy *= -1

@@ -18,6 +18,21 @@ def main():
     graphics = BreakoutGraphics()
 
     # Add the animation loop here!
+    while 1:
+        if graphics.go:
+            if graphics.bricks_amount > 0:
+                
+                graphics.ball.move(graphics.get_dx(), graphics.get_dy()) #Start move the ball 
+
+                if graphics.ball.x < 0 or graphics.ball.x + graphics.ball.width > graphics.window.width:
+                    graphics.change_x_direction()
+
+                graphics.detect_hits() #Detect if ball hits brick
+
+                if graphics.ball.y + graphics.ball.height > graphics.window.height:
+                    graphics.reset()
+                                     
+        pause(FRAME_RATE)
 
 
 if __name__ == '__main__':
