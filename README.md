@@ -1,2 +1,3 @@
 # python_ball
-Class practice
+Object-oriented practice
+It's a simple Paddle and Bricks game
