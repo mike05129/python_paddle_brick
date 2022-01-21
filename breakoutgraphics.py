@@ -128,11 +128,9 @@ class BreakoutGraphics:
 
     def get_dy(self):
         return self.__dy
-    
-    
+       
     def change_x_direction(self):
         self.__dx *= -1
-
-
+        
     def change_y_direction(self):
         self.__dy *= -1
